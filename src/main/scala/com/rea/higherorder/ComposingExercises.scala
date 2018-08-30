@@ -36,7 +36,7 @@ package com.rea.higherorder
   *   possible types of generics in this function. Every A has to be the same type as
   *   every other A, every B the same as every other B, but the As and the Bs don't
   *   necessarily have to be the same type.
-  *
+    *
   *   eg: def someFunc[Int, Int](x: Int, y: Int): Int
   *       def someFunc[Int, String](x: Int, y: String): String
   *
@@ -55,19 +55,20 @@ object ComposingExercises {
   def addTwo: Int => Int = x => add(x, 2)
 
   // Write a boring subtract function
-  def subtract(a: Int, b: Int): Int = ???
+  def subtract(a: Int, b: Int): Int = a - b
 
   // We want to partially apply subtract
-  def minusThree: Int => Int = ???
+  def minusThree: Int => Int = x => subtract(x,3)
 
   // How do we create a new function from addTwo and minusThree?
-  def addTwoMinusThree: Int => Int = ???
-  
+  def addTwoMinusThree: Int => Int = compose_(minusThree, addTwo)
+
   def prettyPrint(i:Int) = s"The number is $i"
 
   // Composing a composition!??
-  def addTwoMinusThreePrettyPrint: Int => String = ???
+  def addTwoMinusThreePrettyPrint: Int => String = compose_(prettyPrint, addTwoMinusThree)
 
   // How do we convert (compose) f and g into a brand new function?
-  def compose_[A, B, C](f: B => C, g: A => B): A => C = ???
+  def compose_[A, B, C](f: B => C, g: A => B): A => C = x => f(g(x))
+
 }
